@@ -36,9 +36,9 @@ sma <- function(x, order=NULL, h=10, optimize=FALSE,
     if(min.order >= max.order){
       stop("The minimum order should be less than the maximum order", call.=FALSE)
     }
-# Check if minimum and maximum order do not exceed half the order of the data. This is just a precaution
+# Check if minimum and maximum order do not exceed half the length of the data. This is just a precaution
     if(min.order > n/2 | max.order > n/2){
-      stop("The minimum and maximum can not exceed half the order of the data", call.=FALSE)
+      stop("The minimum and maximum can not exceed half the length of the data", call.=FALSE)
     }
 
     l_span <- seq(min.order, max.order, by = 1); #Create a vector to store all the sma orders
@@ -80,8 +80,11 @@ sma <- function(x, order=NULL, h=10, optimize=FALSE,
     
   if(optimize == FALSE){
 # Check if order is correct
+  if(is.null(order) == TRUE){
+      stop("The order is not specified")}
+      
     if(order > n/2){
-      stop("The order can not exceed half the order of the data.")
+      stop("The order can not exceed half the length of the data.")
     }
     trn.sma <- rep(NA, n);
 # Create a vector to store insample forecasts
